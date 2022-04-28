@@ -8,8 +8,6 @@ metadata = MetaData()
 tax_rates = Table('STAWKI_PODATKU', metadata, autoload=True, autoload_with=engine)
 print(sqlalchemy.__version__)
 
-cols = tax_rates.c
-
 with engine.connect() as conn:
     query = select([tax_rates])
     rp = conn.execute(query)

@@ -1,0 +1,25 @@
+@import 'font-awesome/font-awesome';
+@import 'variables';
+@import 'mixins';
+
+@mixin open-sans {
+  font-family: 'Open Sans', sans-serif;
+}
+
+*,
+html,
+body {
+  @include open-sans;
+  @include set-to-zero;
+  text-align: center;
+}
+
+body {
+  background-color: black;
+}
+
+@import 'pageSections/navbar';
+@import 'pageSections/page-title';
+@import 'pageSections/footer';
+@import 'pageSections/form-edit';
+@import 'pageSections/item-list';

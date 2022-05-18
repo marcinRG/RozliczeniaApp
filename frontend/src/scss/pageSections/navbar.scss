@@ -1,0 +1,102 @@
+@import '../variables';
+@import '../mixins';
+
+.navbar-comp {
+  @include set-to-zero;
+  @include block-border-box;
+  background-color: $menu-bar-bg;
+  padding: 2em;
+  width: 100%;
+  color: white;
+  overflow: hidden;
+
+  &::after {
+    clear: both;
+  }
+
+  .navbar-logo {
+    @include open-sans;
+    text-align: left;
+    float: left;
+    font-size: 1.8em;
+    display: block;
+    width: 85%;
+    font-weight: 700;
+
+    small {
+      text-align: left;
+      font-size: 1em;
+      font-weight: 300;
+      display: inline-block;
+      width: 100%;
+    }
+
+  }
+
+  .navbar-button {
+    border-radius: 3px;
+    display: block;
+    background-color: white;
+    color: black;
+    padding: .8em;
+    float: right;
+    margin-top: 1em;
+  }
+
+  .menu-items {
+    list-style-type: none;
+    padding-top: .5em;
+    display: block;
+    width: 100%;
+    float: right;
+
+    li {
+      @include block-border-box;
+      width: 100%;
+      padding: .5em;
+      transition-duration: .5s;
+
+      &:hover {
+        background-color: $subtitle-bck;
+      }
+    }
+
+    a {
+      font-size: .95em;
+      text-decoration: none;
+      color: white;
+
+      &:hover {
+        color: $title-bar-bg;
+      }
+    }
+
+  }
+
+  @media screen {
+
+    @media (min-width: $media-br-1) {
+
+      .navbar-logo {
+        width: auto;
+
+        small {
+          width: auto;
+        }
+      }
+
+      .navbar-button {
+        display: none;
+      }
+
+      .menu-items {
+        width: auto;
+
+        li {
+          display: inline-block;
+          width: auto;
+        }
+      }
+    }
+  }
+}

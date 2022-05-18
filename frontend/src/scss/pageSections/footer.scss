@@ -1,0 +1,14 @@
+@import '../variables';
+@import '../mixins';
+
+.page-footer {
+  color: $footer-text-cl;
+  background-color: $title-bar-bg;
+  padding: 2em;
+
+  span {
+    font-size: 1.2em;
+    display: block;
+    text-align: center;
+  }
+}

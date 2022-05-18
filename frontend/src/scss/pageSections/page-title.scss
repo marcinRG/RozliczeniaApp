@@ -1,0 +1,33 @@
+@import '../variables';
+@import '../mixins';
+
+.page-title {
+  @include open-sans;
+  color: white;
+  background-color: $title-bar-bg;
+  padding: 2em;
+
+  h1 {
+    text-align: center;
+    font-size: 1em;
+
+    small {
+      display: none;
+      text-align: left;
+      font-weight: 300;
+    }
+  }
+
+  @media screen {
+    @media (min-width: $media-br-1) {
+      h1 {
+        text-align: left;
+        font-size: 2.4em;
+
+        small {
+          display: block;
+        }
+      }
+    }
+  }
+}

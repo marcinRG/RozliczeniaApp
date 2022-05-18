@@ -1,0 +1,43 @@
+@import '../variables';
+@import '../mixins';
+
+.item-list {
+  background-color: white;
+
+  h2 {
+    @include page-subtitle;
+  }
+
+  h3 {
+    @include  section-subtitle;
+    background-color: white;
+    color: black;
+  }
+
+  .data-table {
+    width: 70%;
+    text-align: center;
+    margin: 0 auto;
+    padding: 1em 0 4em;
+
+    td {
+      padding: .8em 0;
+    }
+
+
+    thead {
+
+      td {
+        background-color: $light-blu-bg2;
+        color: white;
+        font-weight: 700;
+
+        &:hover {
+          background-color: grey;
+        }
+      }
+
+    }
+  }
+
+}

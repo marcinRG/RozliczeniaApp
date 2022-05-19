@@ -79,11 +79,11 @@ class DbCMS:
     def add_tax_rate(self, values_dict):
         self.__add_new_from_dict(values_dict, self.tax_rates)
 
-    def show_all_tax_rate(self):
+    def show_all_tax_rates(self):
         return self.__show_all_elements(self.tax_rates)
 
-    def edit_tax_rate(self):
-        pass
+    def edit_tax_rate(self, new_values):
+        print(new_values)
 
     def add_unit(self):
         pass

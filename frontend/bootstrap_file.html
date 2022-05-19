@@ -5,14 +5,13 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {{ bootstrap.load_css() }}
-    <title>Rozliczenia ...</title>
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <title>Document</title>
 </head>
 <body>
-
 <div class="container">
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Navbar</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -43,12 +42,10 @@
     <h1 class="display-5 my-1">Stawki podatku</h1>
 </header>
 
-<div class="container">
-   {% block form_content %} Add form here <br/>  {% endblock %}
-   {% block element_list %} Add lists here <br/> {% endblock %}
+<div class="container text-center">
+    <button class="btn btn-danger">Usuń</button>
+    <button class="btn border-1 border-dark">Usuń</button>
 </div>
-
-
-{{ bootstrap.load_js() }}
+<script type="text/javascript" src="bootstrap/js/bootstrap.bundle.js"></script>
 </body>
 </html>

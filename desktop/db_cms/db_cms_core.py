@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, Unicode, ForeignKey, Boolean, Numeric
-from sqlalchemy import Date, insert, select
+from sqlalchemy import Date, insert, select, delete, update
 
 
 class DbCMS:
@@ -76,14 +76,28 @@ class DbCMS:
         with self.__engine__.connect() as conn:
             return conn.execute(selected).all()
 
+    def __remove_element(self, table, element_id):
+        remove_op = delete(table).where(table.c.id == element_id)
+        with self.__engine__.connect() as conn:
+            conn.execute(remove_op)
+
+    def __edit_element(self, table, element_id, values_dict):
+        update_op = update(table).where(table.c.id == element_id)
+        update_op = update_op.values(values_dict)
+        with self.__engine__.connect() as conn:
+            conn.execute(update_op)
+
     def add_tax_rate(self, values_dict):
         self.__add_new_from_dict(values_dict, self.tax_rates)
 
-    def show_all_tax_rate(self):
+    def remove_tax_rate(self, element_id):
+        return self.__remove_element(self.tax_rates, element_id)
+
+    def show_all_tax_rates(self):
         return self.__show_all_elements(self.tax_rates)
 
-    def edit_tax_rate(self):
-        pass
+    def edit_tax_rate(self, element_id, new_values):
+        return self.__edit_element(self.tax_rates, element_id, new_values)
 
     def add_unit(self):
         pass

@@ -1,2 +1,79 @@
 {% extends "base.html" %}
+{% from 'bootstrap5/form.html' import render_field %}
+
+{% block form_content %}
+
+   {% if form: %}
+
+        <form novalidate method="post" action="/">
+
+            {{ form.csrf_token }}
+            {{ render_field(form.name)}}
+            {{ render_field(form.symbol)}}
+            {{ render_field(form.rate)}}
+            {{ render_field(form.default)}}
+
+            <div class="d-flex p-3 flex-row-reverse">
+                <input type="submit" class="btn btn-dark" value="Zapisz">
+            </div>
+        </form>
+
+   {% endif %}
+
+
+
+
+
+{% endblock %}
+
+
+
+{% block element_list %}
+
+       {% if list_data: %}
+                    <table class="table my-3">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Opis</th>
+                                <th scope="col">Symbol</th>
+                                <th scope="col">Stawka</th>
+                                <th scope="col">Domyślne</th>
+                                <th scope="col">Operacje</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for row in list_data: %}
+                            <tr>
+                                <th scope="row">{{loop.index}}</th>
+                                <td>{{row['name']}}</td>
+                                <td>{{row['symbol']}}</td>
+                                <td>{{'{0:0.2f}%'.format(row['rate']*100)}}</td>
+                                <td>{%if row['default']==True:%}
+                                      ✓
+                                    {%endif%}
+                                </td>
+                                <td class="text-center">
+                                        <button class="btn btn-danger">Usuń</button>
+                                        <button class="btn border-1 border-dark">Edytuj</button>
+                                </td>
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+    {% endif %}
+
+
+
+
+
+{% endblock %}
+
+
+
+
 

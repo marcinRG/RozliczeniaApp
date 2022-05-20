@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {{ bootstrap.load_css() }}
+    <title>Rozliczenia ...</title>
+</head>
+<body>
+
+<div class="container">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Stawki podatki</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Jednostki miary</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Kategorie towarów</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+</div>
+
+
+<header class="container">
+    <h1 class="display-5 my-1">Stawki podatku</h1>
+</header>
+
+<div class="container">
+   {% block form_content %} Add form here <br/>  {% endblock %}
+   {% block element_list %} Add lists here <br/> {% endblock %}
+</div>
+
+
+{{ bootstrap.load_js() }}
+</body>
+</html>

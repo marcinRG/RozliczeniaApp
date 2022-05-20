@@ -39,7 +39,8 @@ class DbCMS:
                                Column('name_cont', Unicode()),
                                Column('postal_code', String(7)),
                                Column('VAT_number', String(15)),
-                               Column('city', String(25)))
+                               Column('city', String(25)),
+                               Column('street', String(35)))
 
         self.items = Table('items', self.__metadata__,
                            Column('id', Integer(), primary_key=True, autoincrement=True),
@@ -79,7 +80,12 @@ class DbCMS:
     def __remove_element(self, table, element_id):
         remove_op = delete(table).where(table.c.id == element_id)
         with self.__engine__.connect() as conn:
-            conn.execute(remove_op)
+            return conn.execute(remove_op)
+
+    def __get_element(self, table, element_id):
+        elem = select([table]).where(table.c.id == element_id)
+        with self.__engine__.connect() as conn:
+            return conn.execute(elem).fetchone()
 
     def __edit_element(self, table, element_id, values_dict):
         update_op = update(table).where(table.c.id == element_id)
@@ -99,6 +105,9 @@ class DbCMS:
     def edit_tax_rate(self, element_id, new_values):
         return self.__edit_element(self.tax_rates, element_id, new_values)
 
+    def get_tax_rate(self, element_id):
+        return self.__get_element(self.tax_rates, element_id)
+
     def add_unit(self):
         pass
 
@@ -116,3 +125,6 @@ class DbCMS:
 
     def get_companies_columns(self):
         return self.companies.columns
+
+
+db = DbCMS('sqlite:///resources/db/app_data.db')

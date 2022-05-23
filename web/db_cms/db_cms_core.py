@@ -93,6 +93,7 @@ class DbCMS:
         with self.__engine__.connect() as conn:
             conn.execute(update_op)
 
+    # --------------------------------------------------------------------------
     def add_tax_rate(self, values_dict):
         self.__add_new_from_dict(values_dict, self.tax_rates)
 
@@ -108,17 +109,41 @@ class DbCMS:
     def get_tax_rate(self, element_id):
         return self.__get_element(self.tax_rates, element_id)
 
-    def add_unit(self):
-        pass
+    # --------------------------------------------------------------------------
 
-    def edit_category(self):
-        pass
+    def add_unit(self, values_dict):
+        self.__add_new_from_dict(values_dict, self.measurement_units)
 
-    def remove_category(self):
-        pass
+    def remove_unit(self, element_id):
+        return self.__remove_element(self.measurement_units, element_id)
 
-    def add_category(self):
-        pass
+    def show_all_units(self):
+        return self.__show_all_elements(self.measurement_units)
+
+    def edit_unit(self, element_id, new_values):
+        return self.__edit_element(self.measurement_units, element_id, new_values)
+
+    def get_unit(self, element_id):
+        return self.__get_element(self.measurement_units, element_id)
+
+    # --------------------------------------------------------------------------
+
+    def add_category(self, values_dict):
+        self.__add_new_from_dict(values_dict, self.items_categories)
+
+    def remove_category(self, element_id):
+        return self.__remove_element(self.items_categories, element_id)
+
+    def show_all_categories(self):
+        return self.__show_all_elements(self.items_categories)
+
+    def edit_category(self, element_id, new_values):
+        return self.__edit_element(self.items_categories, element_id, new_values)
+
+    def get_category(self, element_id):
+        return self.__get_element(self.items_categories, element_id)
+
+    # --------------------------------------------------------------------------
 
     def get_tables(self):
         return self.__engine__.table_names()

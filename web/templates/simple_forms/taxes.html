@@ -1,16 +1,20 @@
 {% extends "simple_forms/base.html" %}
 {% from 'bootstrap5/form.html' import render_field %}
 
+{% block page_title %}
+   {{settings['title']}}
+{% endblock %}
+
 {% block form_content %}
 
-<button class="btn btn-dark">Dodaj nowy element</button>
+<a href="/taxes/new" class="btn btn-dark">{{settings['button_name']}}</a>
 
 {% if form: %}
 
         {% if page_state == 'edit': %}
-        <form novalidate method="post" action="{{'/tax_rates/edit/'~element_id}}">
+        <form novalidate method="post" action="{{'/taxes/edit/'~element_id}}">
         {% elif page_state == 'new': %}
-        <form novalidate method="post" action="/tax_rates/new">
+        <form novalidate method="post" action="/taxes/new">
         {% endif %}
 
 
@@ -43,10 +47,11 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Opis</th>
-                <th scope="col">Symbol</th>
-                <th scope="col">Stawka</th>
-                <th scope="col">Domyślne</th>
+
+                {% for column_title in settings['table_headers']: %}
+                <th scope="col">{{column_title}}</th>
+                {% endfor%}
+
                 <th scope="col">Operacje</th>
             </tr>
             </thead>
@@ -65,7 +70,7 @@
                 </td>
                 <td class="text-center">
                     <button class="btn btn-danger">Usuń</button>
-                    <a class="btn border-1 border-dark" href="{{'/tax_rates/edit/' ~ row['id']}}">Edytuj</a>
+                    <a class="btn border-1 border-dark" href="{{'/taxes/edit/' ~ row['id']}}">Edytuj</a>
                 </td>
             </tr>
 

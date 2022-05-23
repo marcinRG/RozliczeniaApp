@@ -1,0 +1,76 @@
+{% extends "simple_forms/base.html" %}
+{% from 'bootstrap5/form.html' import render_field %}
+
+{% block page_title %}
+   {{settings['title']}}
+{% endblock %}
+
+{% block form_content %}
+
+<a href="/units/new" class="btn btn-dark">{{settings['button_name']}}</a>
+
+{% if form: %}
+
+        {% if page_state == 'edit': %}
+        <form novalidate method="post" action="{{'/units/edit/'~element_id}}">
+        {% elif page_state == 'new': %}
+        <form novalidate method="post" action="/units/new">
+        {% endif %}
+
+
+        {% if page_state == 'edit': %}
+        <input type="hidden" value="{{element_id}}" name="element_id" style="display: none">
+        {% endif %}
+
+        <input type="hidden" value="{{page_state}}" name="page_state" style="display: none">
+        {{ form.csrf_token }}
+        {{ render_field(form.name)}}
+        {{ render_field(form.unit_symbol)}}
+
+        <div class="d-flex p-3 flex-row-reverse">
+            <input type="submit" class="btn btn-dark" value="Zapisz">
+        </div>
+    </form>
+
+    {% endif %}
+
+
+{% endblock %}
+
+
+{% block element_list %}
+
+    {% if list_data: %}
+        <table class="table my-3">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+
+                {% for column_title in settings['table_headers']: %}
+                <th scope="col">{{column_title}}</th>
+                {% endfor%}
+
+                <th scope="col">Operacje</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            {% for row in list_data: %}
+            <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{row['name']}}</td>
+                <td>{{row['unit_symbol']}}</td>
+                <td class="text-center">
+                    <button class="btn btn-danger">Usuń</button>
+                    <a class="btn border-1 border-dark" href="{{'/units/edit/' ~ row['id']}}">Edytuj</a>
+                </td>
+            </tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+    {% endif %}
+
+{% endblock %}

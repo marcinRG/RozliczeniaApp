@@ -1,16 +1,20 @@
-{% extends "base.html" %}
+{% extends "simple_forms/base.html" %}
 {% from 'bootstrap5/form.html' import render_field %}
+
+{% block page_title %}
+   {{settings['title']}}
+{% endblock %}
 
 {% block form_content %}
 
-<button class="btn btn-dark">Dodaj nową stawkę</button>
+<a  href="/categories/new" class="btn btn-dark">{{settings['button_name']}}</a>
 
 {% if form: %}
 
         {% if page_state == 'edit': %}
-        <form novalidate method="post" action="{{'/tax_rates/edit/'~element_id}}">
+        <form novalidate method="post" action="{{'/categories/edit/'~element_id}}">
         {% elif page_state == 'new': %}
-        <form novalidate method="post" action="/tax_rates/new">
+        <form novalidate method="post" action="/categories/new">
         {% endif %}
 
 
@@ -21,9 +25,7 @@
         <input type="hidden" value="{{page_state}}" name="page_state" style="display: none">
         {{ form.csrf_token }}
         {{ render_field(form.name)}}
-        {{ render_field(form.symbol)}}
-        {{ render_field(form.rate)}}
-        {{ render_field(form.default)}}
+        {{ render_field(form.description)}}
 
         <div class="d-flex p-3 flex-row-reverse">
             <input type="submit" class="btn btn-dark" value="Zapisz">
@@ -43,10 +45,11 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Opis</th>
-                <th scope="col">Symbol</th>
-                <th scope="col">Stawka</th>
-                <th scope="col">Domyślne</th>
+
+                {% for column_title in settings['table_headers']: %}
+                <th scope="col">{{column_title}}</th>
+                {% endfor%}
+
                 <th scope="col">Operacje</th>
             </tr>
             </thead>
@@ -57,15 +60,10 @@
             <tr>
                 <th scope="row">{{loop.index}}</th>
                 <td>{{row['name']}}</td>
-                <td>{{row['symbol']}}</td>
-                <td>{{'{0:0.2f}%'.format(row['rate']*100)}}</td>
-                <td>{% if row['default']==True: %}
-                    ✓
-                    {% endif %}
-                </td>
+                <td>{{row['description']}}</td>
                 <td class="text-center">
                     <button class="btn btn-danger">Usuń</button>
-                    <a class="btn border-1 border-dark" href="{{'/tax_rates/edit/' ~ row['id']}}">Edytuj</a>
+                    <a class="btn border-1 border-dark" href="{{'/categories/edit/' ~ row['id']}}">Edytuj</a>
                 </td>
             </tr>
 

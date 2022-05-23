@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{ bootstrap.load_css() }}
-    <title>Rozliczenia ...</title>
+    <title>{% block page_title %} Page title  {% endblock %}</title>
 </head>
 <body>
 
@@ -40,7 +40,7 @@
 
 
 <header class="container">
-    <h1 class="display-5 my-1">Stawki podatku</h1>
+    <h1 class="display-5 my-1">{{settings['title']}}</h1>
 </header>
 
 <div class="container">

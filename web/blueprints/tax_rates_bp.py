@@ -11,8 +11,14 @@ settings = {
 
 @tax_rates_blueprint.route('/taxes/list')
 def list_tax_rates():
+    request_params = request.args.to_dict()
+    if request_params and request_params.get('mode') == 'remove':
+        id_elem = request_params.get('id_elem')
+        if id_elem:
+            db.remove_tax_rate(int(id_elem))
+            return redirect('/taxes/list')
     list_data = db.show_all_tax_rates()
-    return render_template('simple_forms/taxes.html', list_data=list_data, settings=settings)
+    return render_template('simple_forms/taxes.html', list_data=list_data, settings=settings, page_state='list')
 
 
 @tax_rates_blueprint.route('/taxes/edit/<item_id>', methods=['GET', 'POST'])

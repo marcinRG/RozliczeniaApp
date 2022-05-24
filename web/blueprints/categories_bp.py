@@ -11,8 +11,14 @@ settings = {
 
 @categories_blueprint.route('/categories/list')
 def list_tax_rates():
+    request_params = request.args.to_dict()
+    if request_params and request_params.get('mode') == 'remove':
+        id_elem = request_params.get('id_elem')
+        if id_elem:
+            db.remove_category(int(id_elem))
+            return redirect('/categories/list')
     list_data = db.show_all_categories()
-    return render_template('simple_forms/categories.html', list_data=list_data, settings=settings)
+    return render_template('simple_forms/categories.html', list_data=list_data, settings=settings, page_state='list')
 
 
 @categories_blueprint.route('/categories/edit/<item_id>', methods=['GET', 'POST'])
@@ -28,7 +34,7 @@ def tax_rates_edit(item_id):
             return redirect('/categories/list')
     else:
         if item_id:
-            element_to_edit = db.get_unit(int(item_id))
+            element_to_edit = db.get_category(int(item_id))
             form.name.data = element_to_edit.name
             form.description.data = element_to_edit.description
             id_elem = element_to_edit.id

@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import IntegerField, validators, SelectField, DecimalField, StringField, BooleanField, TextAreaField
 
 
-class CategoriesForm(FlaskForm):
+class OperationsForm(FlaskForm):
 
     name = StringField('Podaj nazwę operacji:', [
         validators.InputRequired(message='Musisz wypełnić to pole'),

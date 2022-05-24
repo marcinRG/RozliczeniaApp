@@ -15,7 +15,7 @@ class CompaniesForm(FlaskForm):
         validators.InputRequired(message='Musisz wypełnić to pole'),
         validators.Length(max=7, message='Pole może zawierać jedynie {} znaków!'.format(7))])
 
-    VAT_nr = StringField('Numer VAT:', [
+    VAT_number = StringField('Numer VAT:', [
         validators.InputRequired(message='Musisz wypełnić to pole'),
         validators.Length(max=15, message='Pole może zawierać jedynie {} znaków!'.format(15))])
 

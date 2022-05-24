@@ -7,8 +7,6 @@
 
 {% block form_content %}
 
-<a href="/units/new" class="btn btn-dark">{{settings['button_name']}}</a>
-
 {% if form: %}
 
         {% if page_state == 'edit': %}
@@ -39,6 +37,10 @@
 
 
 {% block element_list %}
+
+   {% if page_state == 'list': %}
+        <a href="/units/new" class="btn btn-dark">{{settings['button_name']}}</a>
+    {% endif %}
 
     {% if list_data: %}
         <table class="table my-3">
@@ -89,7 +91,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-                    <a href="#" type="button" class="btn btn-danger">Usuń</a>
+                    <a href="#" type="button" class="btn btn-danger action-remove">Usuń</a>
                 </div>
             </div>
         </div>

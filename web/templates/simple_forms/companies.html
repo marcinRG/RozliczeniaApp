@@ -9,10 +9,10 @@
 
 {% if form: %}
 
-{% if page_state == 'edit': %}
-<form novalidate method="post" action="{{'/categories/edit/'~element_id}}">
+   {% if page_state == 'edit': %}
+    <form novalidate method="post" action="{{'/companies/edit/'~element_id}}">
     {% elif page_state == 'new': %}
-    <form novalidate method="post" action="/categories/new">
+    <form novalidate method="post" action="/companies/new">
         {% endif %}
 
 
@@ -21,9 +21,16 @@
         {% endif %}
 
         <input type="hidden" value="{{page_state}}" name="page_state" style="display: none">
+
         {{ form.csrf_token }}
-        {{ render_field(form.name)}}
-        {{ render_field(form.description)}}
+        {{ render_field(form.short_name)}}
+        {{render_field(form.name)}}
+        {{render_field(form.name_cont)}}
+        {{render_field(form.VAT_number)}}
+        {{render_field(form.postal_code)}}
+        {{render_field(form.city)}}
+        {{render_field(form.street)}}
+
 
         <div class="d-flex p-3 flex-row-reverse">
             <input type="submit" class="btn btn-dark" value="Zapisz">
@@ -39,10 +46,12 @@
     {% block element_list %}
 
     {% if page_state == 'list': %}
-    <a href="/categories/new" class="btn btn-dark">{{settings['button_name']}}</a>
+        <a href="/companies/new" class="btn btn-dark">{{settings['button_name']}}</a>
     {% endif %}
 
+
     {% if list_data: %}
+
     <table class="table my-3">
         <thead>
         <tr>
@@ -61,13 +70,17 @@
         {% for row in list_data: %}
         <tr>
             <th scope="row">{{loop.index}}</th>
+            <td>{{row['short_name']}}</td>
             <td>{{row['name']}}</td>
-            <td>{{row['description']}}</td>
+            <td>{{row['postal_code']}}</td>
+            <td>{{row['city']}}</td>
+            <td>{{row['VAT_number']}}</td>
+
             <td class="text-center">
                 <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal"
-                        data-id="{{row['id']}}"  data-name="{{row['name']}}">Usuń
+                        data-id="{{row['id']}}"  data-name="{{row['short_name']}}">Usuń
                 </button>
-                <a class="btn border-1 border-dark" href="{{'/categories/edit/' ~ row['id']}}">Edytuj</a>
+                <a class="btn border-1 border-dark" href="{{'/companies/edit/' ~ row['id']}}">Edytuj</a>
             </td>
         </tr>
 

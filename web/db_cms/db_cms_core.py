@@ -37,10 +37,10 @@ class DbCMS:
                                Column('short_name', String(15), nullable=False),
                                Column('name', Unicode()),
                                Column('name_cont', Unicode()),
+                               Column('street', String(35)),
                                Column('postal_code', String(7)),
                                Column('VAT_number', String(15)),
-                               Column('city', String(25)),
-                               Column('street', String(35)))
+                               Column('city', String(25)))
 
         self.items = Table('items', self.__metadata__,
                            Column('id', Integer(), primary_key=True, autoincrement=True),
@@ -145,11 +145,41 @@ class DbCMS:
 
     # --------------------------------------------------------------------------
 
+    def add_operation(self, values_dict):
+        self.__add_new_from_dict(values_dict, self.operations)
+
+    def remove_operation(self, element_id):
+        return self.__remove_element(self.operations, element_id)
+
+    def show_all_operations(self):
+        return self.__show_all_elements(self.operations)
+
+    def edit_operation(self, element_id, new_values):
+        return self.__edit_element(self.operations, element_id, new_values)
+
+    def get_operation(self, element_id):
+        return self.__get_element(self.operations, element_id)
+
+    # --------------------------------------------------------------------------
+    
+    def add_company(self, values_dict):
+        self.__add_new_from_dict(values_dict, self.companies)
+
+    def remove_company(self, element_id):
+        return self.__remove_element(self.companies, element_id)
+
+    def show_all_companies(self):
+        return self.__show_all_elements(self.companies)
+
+    def edit_company(self, element_id, new_values):
+        return self.__edit_element(self.companies, element_id, new_values)
+
+    def get_company(self, element_id):
+        return self.__get_element(self.companies, element_id)
+
+    # --------------------------------------------------------------------------
     def get_tables(self):
         return self.__engine__.table_names()
-
-    def get_companies_columns(self):
-        return self.companies.columns
 
 
 db = DbCMS('sqlite:///resources/db/app_data.db')

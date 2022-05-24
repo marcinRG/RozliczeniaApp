@@ -62,7 +62,9 @@
                 <td>{{row['name']}}</td>
                 <td>{{row['unit_symbol']}}</td>
                 <td class="text-center">
-                    <button class="btn btn-danger">Usuń</button>
+                    <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal"
+                            data-id="{{row['id']}}"  data-name="{{row['name']}}">Usuń
+                    </button>
                     <a class="btn border-1 border-dark" href="{{'/units/edit/' ~ row['id']}}">Edytuj</a>
                 </td>
             </tr>
@@ -72,5 +74,26 @@
             </tbody>
         </table>
     {% endif %}
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteElementModal" tabindex="-1" aria-labelledby="deleteElementModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteElementModalLabel">Usuwanie elementu z bazy danych</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Czy chcesz usunąć element z bazy danych?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
+                    <a href="#" type="button" class="btn btn-danger">Usuń</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 {% endblock %}

@@ -42,10 +42,92 @@
     <h1 class="display-5 my-1">Stawki podatku</h1>
 </header>
 
-<div class="container text-center">
-    <button class="btn btn-danger">Usuń</button>
-    <button class="btn border-1 border-dark">Usuń</button>
+<div class="container">
+    <table class="table my-3">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+
+
+            <th scope="col">nazwa jednostki miary</th>
+
+            <th scope="col">symbol jednostki</th>
+
+
+            <th scope="col">Operacje</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+
+        <tr>
+            <th scope="row">1</th>
+            <td>metr</td>
+            <td>m</td>
+            <td class="text-center">
+                <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal" data-id="1"
+                data-name="jeden">Usuń
+                </button>
+                <a class="btn border-1 border-dark" href="/units/edit/1">Edytuj</a>
+            </td>
+        </tr>
+
+
+        <tr>
+            <th scope="row">2</th>
+            <td>kilo</td>
+            <td>kg</td>
+            <td class="text-center">
+                <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal" data-id="2"
+                        data-name="dwa">Usuń
+                </button>
+                <a class="btn border-1 border-dark" href="/units/edit/2">Edytuj</a>
+            </td>
+        </tr>
+
+
+        <tr>
+            <th scope="row">3</th>
+            <td>tkanina</td>
+            <td></td>
+            <td class="text-center">
+                <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal" data-id="3"
+                        data-name="trzy">Usuń
+                </button>
+                <a class="btn border-1 border-dark" href="/units/edit/3">Edytuj</a>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
 </div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="deleteElementModal" tabindex="-1" aria-labelledby="deleteElementModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteElementModalLabel">Usuwanie elementu z bazy danych</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Czy chcesz usunąć element z bazy danych?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
+                <a href="#" type="button" class="btn btn-danger action-remove">Usuń</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript" src="bootstrap/js/bootstrap.bundle.js"></script>
+<script type="text/javascript" src="bootstrap/script.js"></script>
+
 </body>
 </html>

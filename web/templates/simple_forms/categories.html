@@ -2,19 +2,19 @@
 {% from 'bootstrap5/form.html' import render_field %}
 
 {% block page_title %}
-   {{settings['title']}}
+{{settings['title']}}
 {% endblock %}
 
 {% block form_content %}
 
-<a  href="/categories/new" class="btn btn-dark">{{settings['button_name']}}</a>
+<a href="/categories/new" class="btn btn-dark">{{settings['button_name']}}</a>
 
 {% if form: %}
 
-        {% if page_state == 'edit': %}
-        <form novalidate method="post" action="{{'/categories/edit/'~element_id}}">
-        {% elif page_state == 'new': %}
-        <form novalidate method="post" action="/categories/new">
+{% if page_state == 'edit': %}
+<form novalidate method="post" action="{{'/categories/edit/'~element_id}}">
+    {% elif page_state == 'new': %}
+    <form novalidate method="post" action="/categories/new">
         {% endif %}
 
 
@@ -35,47 +35,64 @@
     {% endif %}
 
 
-{% endblock %}
+    {% endblock %}
 
 
-{% block element_list %}
+    {% block element_list %}
 
     {% if list_data: %}
-        <table class="table my-3">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
+    <table class="table my-3">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
 
-                {% for column_title in settings['table_headers']: %}
-                <th scope="col">{{column_title}}</th>
-                {% endfor%}
+            {% for column_title in settings['table_headers']: %}
+            <th scope="col">{{column_title}}</th>
+            {% endfor%}
 
-                <th scope="col">Operacje</th>
-            </tr>
-            </thead>
+            <th scope="col">Operacje</th>
+        </tr>
+        </thead>
 
-            <tbody>
+        <tbody>
 
-            {% for row in list_data: %}
-            <tr>
-                <th scope="row">{{loop.index}}</th>
-                <td>{{row['name']}}</td>
-                <td>{{row['description']}}</td>
-                <td class="text-center">
-                    <button class="btn btn-danger">Usuń</button>
-                    <a class="btn border-1 border-dark" href="{{'/categories/edit/' ~ row['id']}}">Edytuj</a>
-                </td>
-            </tr>
+        {% for row in list_data: %}
+        <tr>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{row['name']}}</td>
+            <td>{{row['description']}}</td>
+            <td class="text-center">
+                <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal"
+                        data-id="{{row['id']}}"  data-name="{{row['name']}}">Usuń
+                </button>
+                <a class="btn border-1 border-dark" href="{{'/categories/edit/' ~ row['id']}}">Edytuj</a>
+            </td>
+        </tr>
 
-            {% endfor %}
+        {% endfor %}
 
-            </tbody>
-        </table>
+        </tbody>
+    </table>
     {% endif %}
 
-{% endblock %}
+    <!-- Modal -->
+    <div class="modal fade" id="deleteElementModal" tabindex="-1" aria-labelledby="deleteElementModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteElementModalLabel">Usuwanie elementu z bazy danych</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Czy chcesz usunąć element z bazy danych?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
+                    <a href="#" type="button" class="btn btn-danger">Usuń</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-
-
-
-
+    {% endblock %}

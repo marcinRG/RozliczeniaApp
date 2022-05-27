@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, Unicode, ForeignKey, Boolean, Numeric
-from sqlalchemy import Date, insert, select, delete, update
+from sqlalchemy import Date, insert, select, delete, update, join
 
 
 class DbCMS:
@@ -161,7 +161,7 @@ class DbCMS:
         return self.__get_element(self.operations, element_id)
 
     # --------------------------------------------------------------------------
-    
+
     def add_company(self, values_dict):
         self.__add_new_from_dict(values_dict, self.companies)
 
@@ -178,6 +178,31 @@ class DbCMS:
         return self.__get_element(self.companies, element_id)
 
     # --------------------------------------------------------------------------
+    def show_all_documents(self):
+        columns = [self.documents.c.id, self.documents.c.document_title, self.documents.c.date,
+                   self.documents.c.document_sum, self.documents.c.description, self.operations.c.name]
+        selected = select(columns)
+        selected = selected.select_from(
+            self.documents.join(self.operations, self.documents.c.operation_id == self.operations.c.id))
+        with self.__engine__.connect() as conn:
+            return conn.execute(selected).all()
+
+    def add_document(self, values_dict):
+        return self.__add_new_from_dict(values_dict, self.documents)
+
+    # --------------------------------------------------------------------------
+    def __get_elements_as_list(self, table, field_name):
+        elem_list = []
+        table = self.__show_all_elements(table)
+        elem_list = [(element['id'], element[field_name]) for element in table]
+        return elem_list
+
+    def get_operations_list(self):
+        return self.__get_elements_as_list(self.operations, 'name')
+
+    def get_measurement_units_list(self):
+        return self.__get_elements_as_list(self.measurement_units, 'name')
+
     def get_tables(self):
         return self.__engine__.table_names()
 

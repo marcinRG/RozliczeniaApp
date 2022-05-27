@@ -7,6 +7,7 @@ from blueprints.units_bp import units_blueprint
 from blueprints.categories_bp import categories_blueprint
 from blueprints.operations_bp import operations_blueprint
 from blueprints.companies_bp import companies_blueprint
+from blueprints.documents_bp import documents_blueprint
 
 app = Flask(__name__)
 csrf = CSRFProtect(app)
@@ -18,10 +19,13 @@ app.register_blueprint(units_blueprint)
 app.register_blueprint(categories_blueprint)
 app.register_blueprint(operations_blueprint)
 app.register_blueprint(companies_blueprint)
+app.register_blueprint(documents_blueprint)
+
 
 @app.route('/')
 def main():
     return 'Hello world'
+
 
 @app.route('/login')
 def login():

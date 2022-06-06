@@ -18,7 +18,7 @@ def list_tax_rates():
             db.remove_company(int(id_elem))
             return redirect('/companies/list')
     list_data = db.show_all_companies()
-    return render_template('simple_forms/companies.html', list_data=list_data, settings=settings, page_state='list')
+    return render_template('custom_forms/companies.html', list_data=list_data, settings=settings, page_state='list')
 
 
 @companies_blueprint.route('/companies/edit/<item_id>', methods=['GET', 'POST'])

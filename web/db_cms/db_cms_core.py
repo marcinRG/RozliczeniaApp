@@ -180,7 +180,8 @@ class DbCMS:
     # --------------------------------------------------------------------------
     def show_all_documents(self):
         columns = [self.documents.c.id, self.documents.c.document_title, self.documents.c.date,
-                   self.documents.c.document_sum, self.documents.c.description, self.operations.c.name]
+                   self.documents.c.document_sum, self.documents.c.description,
+                   self.operations.c.name.label('operation')]
         selected = select(columns)
         selected = selected.select_from(
             self.documents.join(self.operations, self.documents.c.operation_id == self.operations.c.id))
@@ -189,6 +190,39 @@ class DbCMS:
 
     def add_document(self, values_dict):
         return self.__add_new_from_dict(values_dict, self.documents)
+
+    def remove_document(self, element_id):
+        return self.__remove_element(self.documents, element_id)
+
+    def edit_document(self, element_id, new_values):
+        return self.__edit_element(self.documents, element_id, new_values)
+
+    def get_document(self, element_id):
+        return self.__get_element(self.documents, element_id)
+
+    # --------------------------------------------------------------------------
+    def show_all_items(self):
+        columns = [self.items.c.id, self.items.c.short_name, self.items.c.name,
+                   self.items_categories.c.name.label('category_name'),
+                   self.measurement_units.c.name.label('unit_name')]
+        selected = select(columns)
+        selected = selected.select_from(
+            self.items.join(self.items_categories, self.items.c.category_id == self.items_categories.c.id).join(
+                self.measurement_units, self.items.c.measurement_id == self.measurement_units.c.id))
+        with self.__engine__.connect() as conn:
+            return conn.execute(selected).all()
+
+    def add_item(self, values_dict):
+        return self.__add_new_from_dict(values_dict, self.items)
+
+    def remove_item(self, element_id):
+        return self.__remove_element(self.items, element_id)
+
+    def edit_item(self, element_id, new_values):
+        return self.__edit_element(self.items, element_id, new_values)
+
+    def get_item(self, element_id):
+        return self.__get_element(self.items, element_id)
 
     # --------------------------------------------------------------------------
     def __get_elements_as_list(self, table, field_name):
@@ -202,6 +236,9 @@ class DbCMS:
 
     def get_measurement_units_list(self):
         return self.__get_elements_as_list(self.measurement_units, 'name')
+
+    def get_categories_list(self):
+        return self.__get_elements_as_list(self.items_categories, 'name')
 
     def get_tables(self):
         return self.__engine__.table_names()

@@ -1,0 +1,113 @@
+{% extends "custom_forms/custom_base.html" %}
+{% from 'bootstrap5/form.html' import render_field %}
+
+{% block page_title %}
+{{settings['title']}}
+{% endblock %}
+
+{% block form_content %}
+
+{% if form: %}
+
+   {% if page_state == 'edit': %}
+    <form novalidate method="post" action="{{'/companies/edit/'~element_id}}">
+    {% elif page_state == 'new': %}
+    <form novalidate method="post" action="/companies/new">
+        {% endif %}
+
+
+        {% if page_state == 'edit': %}
+        <input type="hidden" value="{{element_id}}" name="element_id" style="display: none">
+        {% endif %}
+
+        <input type="hidden" value="{{page_state}}" name="page_state" style="display: none">
+
+        {{ form.csrf_token }}
+        {{ render_field(form.short_name)}}
+        {{render_field(form.name)}}
+        {{render_field(form.name_cont)}}
+        {{render_field(form.VAT_number)}}
+        {{render_field(form.postal_code)}}
+        {{render_field(form.city)}}
+        {{render_field(form.street)}}
+
+
+        <div class="d-flex p-3 flex-row-reverse">
+            <input type="submit" class="btn btn-dark" value="Zapisz">
+        </div>
+    </form>
+
+    {% endif %}
+
+
+    {% endblock %}
+
+
+    {% block element_list %}
+
+    {% if page_state == 'list': %}
+        <a href="/companies/new" class="btn btn-dark">{{settings['button_name']}}</a>
+    {% endif %}
+
+
+    {% if list_data: %}
+
+    <table class="table my-3">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+
+            {% for column_title in settings['table_headers']: %}
+            <th scope="col">{{column_title}}</th>
+            {% endfor%}
+
+            <th scope="col">Operacje</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        {% for row in list_data: %}
+        <tr>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{row['short_name']}}</td>
+            <td>{{row['name']}}</td>
+            <td>{{row['postal_code']}}</td>
+            <td>{{row['city']}}</td>
+            <td>{{row['VAT_number']}}</td>
+
+            <td class="text-center">
+                <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal"
+                        data-id="{{row['id']}}"  data-name="{{row['short_name']}}">Usuń
+                </button>
+                <a class="btn border-1 border-dark" href="{{'/companies/edit/' ~ row['id']}}">Edytuj</a>
+            </td>
+        </tr>
+
+        {% endfor %}
+
+        </tbody>
+    </table>
+    {% endif %}
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteElementModal" tabindex="-1" aria-labelledby="deleteElementModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteElementModalLabel">Usuwanie elementu z bazy danych</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Czy chcesz usunąć element z bazy danych?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
+                    <a href="#" type="button" class="btn btn-danger action-remove">Usuń</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}

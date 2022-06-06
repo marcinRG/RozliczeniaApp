@@ -8,6 +8,7 @@ from blueprints.categories_bp import categories_blueprint
 from blueprints.operations_bp import operations_blueprint
 from blueprints.companies_bp import companies_blueprint
 from blueprints.documents_bp import documents_blueprint
+from blueprints.items_bp import items_blueprint
 
 app = Flask(__name__)
 csrf = CSRFProtect(app)
@@ -20,6 +21,7 @@ app.register_blueprint(categories_blueprint)
 app.register_blueprint(operations_blueprint)
 app.register_blueprint(companies_blueprint)
 app.register_blueprint(documents_blueprint)
+app.register_blueprint(items_blueprint)
 
 
 @app.route('/')

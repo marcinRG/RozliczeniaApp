@@ -26,7 +26,7 @@ app.register_blueprint(items_blueprint)
 
 @app.route('/')
 def main():
-    return 'Hello world'
+    return redirect('/documents/list')
 
 
 @app.route('/login')

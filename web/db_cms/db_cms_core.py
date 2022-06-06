@@ -198,7 +198,21 @@ class DbCMS:
         return self.__edit_element(self.documents, element_id, new_values)
 
     def get_document(self, element_id):
-        return self.__get_element(self.documents, element_id)
+        columns = [self.documents.c.id, self.documents.c.document_title, self.documents.c.date,
+                   self.documents.c.document_sum, self.documents.c.description,
+                   self.operations.c.name.label('operation')]
+        selected = select(columns)
+        selected = selected.select_from(
+            self.documents.join(self.operations, self.documents.c.operation_id == self.operations.c.id)).where(
+            self.documents.c.id == element_id)
+        with self.__engine__.connect() as conn:
+            return conn.execute(selected).fetchone()
+
+    # ---------------------------------------------------------------------------
+    def show_document_details(self, element_id):
+        selected = select([self.documents_details]).where(self.documents_details.c.document_id == element_id)
+        with self.__engine__.connect() as conn:
+            return conn.execute(selected).all()
 
     # --------------------------------------------------------------------------
     def show_all_items(self):

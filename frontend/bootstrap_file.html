@@ -14,7 +14,8 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -43,6 +44,18 @@
 </header>
 
 <div class="container">
+
+    <h4 class="fw-normal my-3">Dokument szczegóły:</h4>
+
+    <div>
+
+        <div class="mb-3">
+            <label class="form-label">Email address</label>
+            <p class="form-control" >To jest jakiś tekst</p>
+        </div>
+    </div>
+
+    <h4 class="fw-normal my-3">Lista towarów:</h4>
     <table class="table my-3">
         <thead>
         <tr>
@@ -66,8 +79,9 @@
             <td>metr</td>
             <td>m</td>
             <td class="text-center">
-                <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal" data-id="1"
-                data-name="jeden">Usuń
+                <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal"
+                        data-id="1"
+                        data-name="jeden">Usuń
                 </button>
                 <a class="btn border-1 border-dark" href="/units/edit/1">Edytuj</a>
             </td>
@@ -79,7 +93,8 @@
             <td>kilo</td>
             <td>kg</td>
             <td class="text-center">
-                <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal" data-id="2"
+                <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal"
+                        data-id="2"
                         data-name="dwa">Usuń
                 </button>
                 <a class="btn border-1 border-dark" href="/units/edit/2">Edytuj</a>
@@ -92,7 +107,8 @@
             <td>tkanina</td>
             <td></td>
             <td class="text-center">
-                <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal" data-id="3"
+                <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal"
+                        data-id="3"
                         data-name="trzy">Usuń
                 </button>
                 <a class="btn border-1 border-dark" href="/units/edit/3">Edytuj</a>
@@ -102,8 +118,6 @@
         </tbody>
     </table>
 </div>
-
-
 
 
 <!-- Modal -->

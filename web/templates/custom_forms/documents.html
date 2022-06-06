@@ -1,4 +1,4 @@
-{% extends "custom_forms/custom_base.html" %}
+{% extends "simple_forms/base.html" %}
 {% from 'bootstrap5/form.html' import render_field %}
 
 {% block page_title %}
@@ -38,7 +38,7 @@
 {% endif %}
 {% endblock %}
 
-    {% block element_list %}
+{% block element_list %}
 
     {% if page_state == 'list': %}
     <a href="/items/new" class="btn btn-dark">{{settings['button_name']}}</a>
@@ -73,6 +73,7 @@
                 <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal"
                         data-id="{{row['id']}}"  data-name="{{row['document_title']}}">Usuń
                 </button>
+                <a class="btn border-1 border-dark" href="{{'/documents/details/' ~ row['id']}}">Szczegóły</a>
                 <a class="btn border-1 border-dark" href="{{'/documents/edit/' ~ row['id']}}">Edytuj</a>
             </td>
         </tr>
@@ -102,5 +103,99 @@
             </div>
         </div>
     </div>
+
+{% endblock %}
+
+
+    {% block element_details %}
+
+        {% if page_state == 'details': %}
+            <h4 class="fw-normal my-3">Dokument szczegóły:</h4>
+
+            <div>
+
+                <div class="mb-2">
+                    <label class="form-label">Data:</label>
+                    <input  type="text" class="form-control" readonly>To jest jakiś tekst</input>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Numer dokumentu:</label>
+                    <input  type="text" class="form-control" readonly>To jest jakiś tekst</input>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Numer dokumentu:</label>
+                    <input  type="text" class="form-control" readonly>To jest jakiś tekst</input>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Numer dokumentu:</label>
+                    <input  type="text" class="form-control" readonly>To jest jakiś tekst</input>
+                </div>
+            </div>
+
+            <h4 class="fw-normal my-3">Lista towarów:</h4>
+            <table class="table my-3">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+
+
+                    <th scope="col">nazwa jednostki miary</th>
+
+                    <th scope="col">symbol jednostki</th>
+
+
+                    <th scope="col">Operacje</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+
+                <tr>
+                    <th scope="row">1</th>
+                    <td>metr</td>
+                    <td>m</td>
+                    <td class="text-center">
+                        <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal"
+                                data-id="1"
+                                data-name="jeden">Usuń
+                        </button>
+                        <a class="btn border-1 border-dark" href="/units/edit/1">Edytuj</a>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <th scope="row">2</th>
+                    <td>kilo</td>
+                    <td>kg</td>
+                    <td class="text-center">
+                        <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal"
+                                data-id="2"
+                                data-name="dwa">Usuń
+                        </button>
+                        <a class="btn border-1 border-dark" href="/units/edit/2">Edytuj</a>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <th scope="row">3</th>
+                    <td>tkanina</td>
+                    <td></td>
+                    <td class="text-center">
+                        <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal"
+                                data-id="3"
+                                data-name="trzy">Usuń
+                        </button>
+                        <a class="btn border-1 border-dark" href="/units/edit/3">Edytuj</a>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        {% endif %}
+
 
     {% endblock %}

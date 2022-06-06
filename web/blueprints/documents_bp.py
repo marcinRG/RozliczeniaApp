@@ -6,7 +6,7 @@ from forms.documents_form import DocumentsForm
 documents_blueprint = Blueprint('documents_blueprint', __name__)
 
 settings = {
-    'title': 'Dokumnety',
+    'title': 'Dokumenty',
     'button_name': 'Dodaj nowy dokument',
     'table_headers': ['data', 'nr dokumentu', 'przychód/rozchód', 'suma']}
 
@@ -64,9 +64,13 @@ def new_document():
             'operation_id': form.operation_id.data,
             'description': form.description.data
         })
-    return render_template('custom_forms/documents.html', form=form)
+    return render_template('custom_forms/documents.html', form=form, page_state='new', settings=settings)
 
 
 @documents_blueprint.route('/documents/details/<item_id>')
 def documents_details(item_id):
-    return 'document details'
+    document = db.get_document(int(item_id))
+    document_details = db.show_document_details(int(item_id))
+    print(document)
+    print(document_details)
+    return render_template('custom_forms/documents.html', page_state='details', settings=settings)

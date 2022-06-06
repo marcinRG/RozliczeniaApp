@@ -48,7 +48,7 @@ def tax_rates_edit(item_id):
             form.city.data = element_to_edit.city
             form.street.data = element_to_edit.street
             id_elem = element_to_edit.id
-    return render_template('simple_forms/companies.html', form=form, page_state='edit', element_id=id_elem,
+    return render_template('custom_forms/companies.html', form=form, page_state='edit', element_id=id_elem,
                            settings=settings)
 
 
@@ -65,4 +65,4 @@ def tax_rates_new():
                             'city': form.city.data,
                             'street': form.street.data})
             return redirect('/companies/list')
-    return render_template('simple_forms/companies.html', form=form, page_state='new', settings=settings)
+    return render_template('custom_forms/companies.html', form=form, page_state='new', settings=settings)

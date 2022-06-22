@@ -73,4 +73,10 @@ def documents_details(item_id):
     document_details = db.show_document_details(int(item_id))
     print(document)
     print(document_details)
-    return render_template('custom_forms/documents.html', page_state='details', settings=settings)
+    return render_template('custom_forms/documents.html', page_state='details', settings=settings, document=document,
+                           details=document_details, document_id=item_id)
+
+
+@documents_blueprint.route('/documents/details/<item_id>/positions/new')
+def and_new_position(item_id):
+    return 'new position'

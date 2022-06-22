@@ -210,7 +210,8 @@ class DbCMS:
 
     # ---------------------------------------------------------------------------
     def show_document_details(self, element_id):
-        selected = select([self.documents_details]).where(self.documents_details.c.document_id == element_id)
+        selected = select([self.documents_details])
+        # selected = select([self.documents_details]).where(self.documents_details.c.document_id == element_id)
         with self.__engine__.connect() as conn:
             return conn.execute(selected).all()
 

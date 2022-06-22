@@ -35,10 +35,10 @@
         </div>
     </form>
 
-{% endif %}
-{% endblock %}
+    {% endif %}
+    {% endblock %}
 
-{% block element_list %}
+    {% block element_list %}
 
     {% if page_state == 'list': %}
     <a href="/items/new" class="btn btn-dark">{{settings['button_name']}}</a>
@@ -71,7 +71,7 @@
 
             <td class="text-center">
                 <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal"
-                        data-id="{{row['id']}}"  data-name="{{row['document_title']}}">Usuń
+                        data-id="{{row['id']}}" data-name="{{row['document_title']}}">Usuń
                 </button>
                 <a class="btn border-1 border-dark" href="{{'/documents/details/' ~ row['id']}}">Szczegóły</a>
                 <a class="btn border-1 border-dark" href="{{'/documents/edit/' ~ row['id']}}">Edytuj</a>
@@ -104,98 +104,107 @@
         </div>
     </div>
 
-{% endblock %}
+    {% endblock %}
 
 
     {% block element_details %}
 
-        {% if page_state == 'details': %}
-            <h4 class="fw-normal my-3">Dokument szczegóły:</h4>
+    {% if page_state == 'details': %}
+    <h4 class="fw-normal my-3">Dokument szczegóły:</h4>
 
-            <div>
 
+
+
+    <div>
+        <div class="row">
+            <div class="col">
                 <div class="mb-2">
                     <label class="form-label">Data:</label>
-                    <input  type="text" class="form-control" readonly>To jest jakiś tekst</input>
-                </div>
-                <div class="mb-2">
-                    <label class="form-label">Numer dokumentu:</label>
-                    <input  type="text" class="form-control" readonly>To jest jakiś tekst</input>
-                </div>
-                <div class="mb-2">
-                    <label class="form-label">Numer dokumentu:</label>
-                    <input  type="text" class="form-control" readonly>To jest jakiś tekst</input>
-                </div>
-                <div class="mb-2">
-                    <label class="form-label">Numer dokumentu:</label>
-                    <input  type="text" class="form-control" readonly>To jest jakiś tekst</input>
+                    <input type="text" class="form-control bg-white" readonly value="{{document['date']}}">
                 </div>
             </div>
+            <div class="col">
+                <div class="mb-2">
+                    <label class="form-label">Numer dokumentu:</label>
+                    <input type="text" class="form-control bg-white" readonly value="{{document['document_title']}}">
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-2">
+                    <label class="form-label">Suma:</label>
+                    <input type="text" class="form-control bg-white" readonly value="{{document['document_sum']}}">
+                </div>
+            </div>
+        </div>
+    </div>
 
-            <h4 class="fw-normal my-3">Lista towarów:</h4>
-            <table class="table my-3">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
+    <h4 class="fw-normal my-3">Pozycje dokumentu:</h4>
 
+    <a href="/documents/details/{{document_id}}/positions/new" class="btn btn-dark">Dodaj nową pozycję</a>
 
-                    <th scope="col">nazwa jednostki miary</th>
-
-                    <th scope="col">symbol jednostki</th>
-
-
-                    <th scope="col">Operacje</th>
-                </tr>
-                </thead>
-
-                <tbody>
-
-
-                <tr>
-                    <th scope="row">1</th>
-                    <td>metr</td>
-                    <td>m</td>
-                    <td class="text-center">
-                        <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal"
-                                data-id="1"
-                                data-name="jeden">Usuń
-                        </button>
-                        <a class="btn border-1 border-dark" href="/units/edit/1">Edytuj</a>
-                    </td>
-                </tr>
+    <table class="table my-3">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
 
 
-                <tr>
-                    <th scope="row">2</th>
-                    <td>kilo</td>
-                    <td>kg</td>
-                    <td class="text-center">
-                        <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal"
-                                data-id="2"
-                                data-name="dwa">Usuń
-                        </button>
-                        <a class="btn border-1 border-dark" href="/units/edit/2">Edytuj</a>
-                    </td>
-                </tr>
+            <th scope="col">nazwa jednostki miary</th>
+
+            <th scope="col">symbol jednostki</th>
 
 
-                <tr>
-                    <th scope="row">3</th>
-                    <td>tkanina</td>
-                    <td></td>
-                    <td class="text-center">
-                        <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal"
-                                data-id="3"
-                                data-name="trzy">Usuń
-                        </button>
-                        <a class="btn border-1 border-dark" href="/units/edit/3">Edytuj</a>
-                    </td>
-                </tr>
+            <th scope="col">Operacje</th>
+        </tr>
+        </thead>
 
-                </tbody>
-            </table>
+        <tbody>
 
-        {% endif %}
+
+        <tr>
+            <th scope="row">1</th>
+            <td>metr</td>
+            <td>m</td>
+            <td class="text-center">
+                <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal"
+                        data-id="1"
+                        data-name="jeden">Usuń
+                </button>
+                <a class="btn border-1 border-dark" href="/units/edit/1">Edytuj</a>
+            </td>
+        </tr>
+
+
+        <tr>
+            <th scope="row">2</th>
+            <td>kilo</td>
+            <td>kg</td>
+            <td class="text-center">
+                <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal"
+                        data-id="2"
+                        data-name="dwa">Usuń
+                </button>
+                <a class="btn border-1 border-dark" href="/units/edit/2">Edytuj</a>
+            </td>
+        </tr>
+
+
+        <tr>
+            <th scope="row">3</th>
+            <td>tkanina</td>
+            <td></td>
+            <td class="text-center">
+                <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal"
+                        data-id="3"
+                        data-name="trzy">Usuń
+                </button>
+                <a class="btn border-1 border-dark" href="/units/edit/3">Edytuj</a>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    {% endif %}
 
 
     {% endblock %}

@@ -62,10 +62,10 @@ class DbCMS:
                                        Column('item_id', ForeignKey('operations.id')),
                                        Column('document_id', ForeignKey('documents.id')),
                                        Column('tax_id', ForeignKey('tax_rates.id')),
-                                       Column('price_per_one', Numeric(), nullable=False),
-                                       Column('price_all', Numeric(), nullable=False),
+                                       Column('price_per_one', Numeric(), nullable=True),
                                        Column('quantity', Numeric(), nullable=False),
-                                       Column('mass_per_piece', Numeric(), nullable=True))
+                                       Column('price_all', Numeric(), nullable=False),
+                                       Column('tax_value', Numeric(), nullable=False))
 
     def __add_new_from_dict(self, values_dict, table):
         ins = insert(table).values(values_dict)
@@ -200,7 +200,7 @@ class DbCMS:
     def get_document(self, element_id):
         columns = [self.documents.c.id, self.documents.c.document_title, self.documents.c.date,
                    self.documents.c.document_sum, self.documents.c.description,
-                   self.operations.c.name.label('operation')]
+                   self.documents.c.operation_id, self.operations.c.name.label('operation')]
         selected = select(columns)
         selected = selected.select_from(
             self.documents.join(self.operations, self.documents.c.operation_id == self.operations.c.id)).where(
@@ -210,8 +210,16 @@ class DbCMS:
 
     # ---------------------------------------------------------------------------
     def show_document_details(self, element_id):
-        selected = select([self.documents_details])
-        # selected = select([self.documents_details]).where(self.documents_details.c.document_id == element_id)
+        columns = [self.documents_details.c.id, self.documents_details.c.document_id,
+                   self.documents_details.c.price_per_one, self.documents_details.c.price_all,
+                   self.documents_details.c.quantity, self.documents_details.c.tax_value, self.tax_rates.c.symbol,
+                   self.items.c.name]
+        selected = select(columns)
+        selected = selected.select_from(
+            self.documents_details.join(self.tax_rates, self.documents_details.c.tax_id == self.tax_rates.c.id)).join(
+            self.items, self.documents_details.c.item_id == self.items.c.id).where(
+            self.documents_details.c.document_id == element_id)
+
         with self.__engine__.connect() as conn:
             return conn.execute(selected).all()
 

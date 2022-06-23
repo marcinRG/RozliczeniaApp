@@ -40,7 +40,6 @@ def edit_document(item_id):
     else:
         if item_id:
             element_to_edit = db.get_document(int(item_id))
-
             form.document_title.data = element_to_edit.document_title
             form.date.data = element_to_edit.date
             form.operation_id.data = element_to_edit.operation_id
@@ -71,8 +70,6 @@ def new_document():
 def documents_details(item_id):
     document = db.get_document(int(item_id))
     document_details = db.show_document_details(int(item_id))
-    print(document)
-    print(document_details)
     return render_template('custom_forms/documents.html', page_state='details', settings=settings, document=document,
                            details=document_details, document_id=item_id)
 
@@ -80,3 +77,8 @@ def documents_details(item_id):
 @documents_blueprint.route('/documents/details/<item_id>/positions/new')
 def and_new_position(item_id):
     return 'new position'
+
+
+@documents_blueprint.route('/documents/details/<document_id>/positions/<position_id>')
+def edit_document_position(document_id, position_id):
+    return 'edit document position'

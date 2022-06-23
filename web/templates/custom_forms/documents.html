@@ -113,8 +113,6 @@
     <h4 class="fw-normal my-3">Dokument szczegóły:</h4>
 
 
-
-
     <div>
         <div class="row">
             <div class="col">
@@ -146,13 +144,12 @@
         <thead>
         <tr>
             <th scope="col">#</th>
-
-
-            <th scope="col">nazwa jednostki miary</th>
-
-            <th scope="col">symbol jednostki</th>
-
-
+            <th scope="col">Nazwa towaru</th>
+            <th scope="col">Ilość</th>
+            <th scope="col">Cena za sztukę</th>
+            <th scope="col">Cena razem</th>
+            <th scope="col">Stawka podatku</th>
+            <th scope="col">Kwota podatku</th>
             <th scope="col">Operacje</th>
         </tr>
         </thead>
@@ -160,48 +157,27 @@
         <tbody>
 
 
+        {% for row in details: %}
+
         <tr>
-            <th scope="row">1</th>
-            <td>metr</td>
-            <td>m</td>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{row['name']}}</td>
+            <td>{{row['quantity']}}</td>
+            <td>{{row['price_per_one']}}</td>
+            <td>{{row['price_all']}}</td>
+            <td>{{row['symbol']}}</td>
+            <td>{{row['tax_value']}}</td>
             <td class="text-center">
                 <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal"
-                        data-id="1"
-                        data-name="jeden">Usuń
+                        data-id="{{row['id']}}"  data-name="{{row['short_name']}}">Usuń
                 </button>
-                <a class="btn border-1 border-dark" href="/units/edit/1">Edytuj</a>
+                <a class="btn border-1 border-dark" href="/documents/details/{{document_id}}/positions/{{row['id']}}">Edytuj</a>
             </td>
         </tr>
 
-
-        <tr>
-            <th scope="row">2</th>
-            <td>kilo</td>
-            <td>kg</td>
-            <td class="text-center">
-                <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal"
-                        data-id="2"
-                        data-name="dwa">Usuń
-                </button>
-                <a class="btn border-1 border-dark" href="/units/edit/2">Edytuj</a>
-            </td>
-        </tr>
+        {% endfor %}
 
 
-        <tr>
-            <th scope="row">3</th>
-            <td>tkanina</td>
-            <td></td>
-            <td class="text-center">
-                <button class="btn btn-danger remove-button" data-bs-toggle="modal" data-bs-target="#deleteElementModal"
-                        data-id="3"
-                        data-name="trzy">Usuń
-                </button>
-                <a class="btn border-1 border-dark" href="/units/edit/3">Edytuj</a>
-            </td>
-        </tr>
-
-        </tbody>
     </table>
 
     {% endif %}

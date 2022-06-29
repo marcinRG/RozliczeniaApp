@@ -209,7 +209,6 @@ class DbCMS:
         with self.__engine__.connect() as conn:
             return conn.execute(selected).fetchone()
 
-    # ---------------------------------------------------------------------------
     def show_document_details(self, element_id):
         columns = [self.documents_details.c.id, self.documents_details.c.document_id,
                    self.documents_details.c.price_per_one, self.documents_details.c.price_all,
@@ -223,6 +222,9 @@ class DbCMS:
 
         with self.__engine__.connect() as conn:
             return conn.execute(selected).all()
+
+    def get_document_item(self, element_id):
+        return self.__get_element(self.documents_details, element_id)
 
     # --------------------------------------------------------------------------
     def show_all_items(self):

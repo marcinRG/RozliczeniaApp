@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect
 
 from db_cms.db_cms_core import db
+from forms.document_details_form import DocumentDetailsForm
 from forms.documents_form import DocumentsForm
 
 documents_blueprint = Blueprint('documents_blueprint', __name__)
@@ -81,4 +82,13 @@ def and_new_position(item_id):
 
 @documents_blueprint.route('/documents/details/<document_id>/positions/<position_id>')
 def edit_document_position(document_id, position_id):
-    return 'edit document position'
+    document_id = int(document_id)
+    position_id = int(position_id)
+    if document_id:
+        item = db.get_document_item(position_id)
+        form = DocumentDetailsForm()
+        print(item)
+        return render_template('custom_forms/documents.html', page_state='position', settings=settings,
+                               form=form, document_id=document_id)
+    else:
+        return 'error'

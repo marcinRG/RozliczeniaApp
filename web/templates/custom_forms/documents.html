@@ -184,3 +184,27 @@
 
 
     {% endblock %}
+
+    {% block item_details %}
+
+    {% if page_state == 'position': %}
+       <h4 class="fw-normal my-3">Pozycja dokumentu - szczegóły:</h4>
+
+    <form novalidate method="post" action="{{'/documents/edit/'~element_id}}">
+
+
+        {{ form.csrf_token }}
+        {{ render_field(form.item_id)}}
+        {{ render_field(form.tax_id)}}
+
+
+        <div class="d-flex p-3 flex-row-reverse">
+            <input type="submit" class="btn btn-dark" value="Zapisz">
+        </div>
+    </form>
+
+
+    {% endif%}
+
+
+    {% endblock %}

@@ -4,6 +4,7 @@ from db_cms.db_cms_core import db
 
 
 class DocumentsForm(FlaskForm):
+    # TODO - add customer
     document_title = StringField('Numer dokumentu:', [
         validators.InputRequired(message='Musisz wypełnić to pole'),
         validators.Length(max=50, message='Pole może zawierać jedynie {} znaków!'.format(50))])

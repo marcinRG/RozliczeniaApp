@@ -49,6 +49,7 @@ class DbCMS:
                            Column('short_name', String(15), nullable=False),
                            Column('name', Unicode()))
 
+        # TODO - dodać id kontrahenta
         self.documents = Table('documents', self.__metadata__,
                                Column('id', Integer(), primary_key=True, autoincrement=True),
                                Column('document_title', String(50), nullable=False),
@@ -253,6 +254,12 @@ class DbCMS:
         table = self.__show_all_elements(table)
         elem_list = [(element['id'], element[field_name]) for element in table]
         return elem_list
+
+    def get_taxes_list(self):
+        return self.__get_elements_as_list(self.tax_rates, 'symbol')
+
+    def get_items_list(self):
+        return self.__get_elements_as_list(self.items_categories, 'name')
 
     def get_operations_list(self):
         return self.__get_elements_as_list(self.operations, 'name')

@@ -261,7 +261,7 @@ class DbCMS:
         return self.__get_elements_as_list(self.tax_rates, 'symbol')
 
     def get_items_list(self):
-        return self.__get_elements_as_list(self.items_categories, 'name')
+        return self.__get_elements_as_list(self.items, 'name')
 
     def get_operations_list(self):
         return self.__get_elements_as_list(self.operations, 'name')

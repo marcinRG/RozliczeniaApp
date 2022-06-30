@@ -87,8 +87,9 @@ def edit_document_position(document_id, position_id):
     if document_id:
         item = db.get_document_item(position_id)
         form = DocumentDetailsForm()
+        print(form)
         print(item)
-        return render_template('custom_forms/documents.html', page_state='position', settings=settings,
+        return render_template('custom_forms/documents_details.html', page_state='position', settings=settings,
                                form=form, document_id=document_id)
     else:
         return 'error'
